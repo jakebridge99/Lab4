@@ -1,0 +1,28 @@
+# Source: https://pymotw.com/2/socket/udp.html
+
+import socket, sys, time, random
+
+host = sys.argv[1]
+textport = sys.argv[2]
+
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+port = int(textport)
+server_address = (host, port)
+
+
+while 1:
+    print ("How any integers do you want to print?")
+    N = int(sys.stdin.readline().strip())
+    
+    for i in range(0, N):
+        
+        data = str(random.randint(1,101))
+        print(data)
+        if not len(data):
+            print("AHHH were breakiNG uP!.")
+            break
+        #    s.sendall(data.encode('utf-8'))
+        s.sendto(data.encode('utf-8'), server_address)
+    
+
+s.shutdown(1)
